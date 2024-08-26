@@ -1,17 +1,33 @@
 {
     "compilerOptions": {
       "target": "es5",
-      "module": "commonjs",
-      "moduleResolution": "node",
+      "module": "Node16",
+      "moduleResolution": "node16",
       "esModuleInterop": true,
       "lib": ["es6", "dom"],
-      "types": ["cypress", "node"],
+      "types": ["cypress", "@types/node"],
       "allowJs": true,
       "noEmit": true,
       "strict": true,
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true
     },
-    "include": ["**/*.ts", "cypress.config.ts"]
+    "include": [
+    "**/*.ts", 
+    "cypress.config.ts",
+    "cypress/**/*.ts",
+    "cypress/**/*.js",
+    "cypress/**/*.cy.ts",
+    "cypress/**/*.cy.js",
+    "cypress/**/*.feature",
+    "cypress/support/**/*.ts",
+    "cypress/support/**/*.js",
+    "cypress/plugins/**/*.ts",
+    "cypress/plugins/**/*.js",
+    "node_modules/@badeball/cypress-cucumber-preprocessor/**/*"
+, "cypress/e2e/step_definitions"  ],
+  "exclude": ["node_modules"]
   }
   
