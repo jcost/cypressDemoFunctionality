@@ -3,14 +3,18 @@ import { loginPage } from "../../fixtures/pageObjects/loginPage.pageObjects";
 
 Given("the user visits the login page", () => {
   loginPage.visit()
-});
+})
 
-When("user fills out username and password and clicks login", () => {
-  loginPage.loginUserNameInput().type('justin.cost@gmail.com')
-  loginPage.loginPasswordInput().type('admin')
+When('user fills out {string} and {string} and clicks login', (username: string, password: string) => {
+  loginPage.loginUserNameInput().type(username)
+  loginPage.loginPasswordInput().type(password)
   loginPage.loginButton().click()
-});
+})
 
-Then("user should see the contact list tab", () => {
+Then('user should see the contact list tab', () => {
   cy.url().should('include', '/myCRMApp/tabs/Contacts')
-});
+})
+
+Then('the user should see welcome {string} in run logs', (message: string) => {
+  cy.log('message: ' + message )
+})
