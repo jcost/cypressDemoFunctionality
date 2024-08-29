@@ -67,3 +67,7 @@ describe('Cypress question', () => {
 function reverseString(str: string): string {
     return str.split('').reverse().join('')
 }
+
+function roundNumberToNextMultiple(numberToRound: number, multipleToRoundUpTo: number): number {
+    return Math.ceil(numberToRound / multipleToRoundUpTo) * multipleToRoundUpTo;
+}
