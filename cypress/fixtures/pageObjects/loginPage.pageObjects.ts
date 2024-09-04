@@ -1,5 +1,5 @@
 export class loginPage {
-    static visit(url: string = 'https://mycrmapp.azurewebsites.net/myCRMApp/') {
+    static visit(url: string = 'https://mycrmapp.azurewebsites.net/myCRMApp/tabs/Contacts') {
         cy.visit(url)
     }
     static loginUserNameInput = () => cy.get('input[name="email"]')
@@ -14,7 +14,7 @@ export class loginPage {
     //static addContactEmailInput = () => cy.get('ion-input[name="email"]').find('input[name="email"]')
     static addContactBackgrouondInput = () => cy.get('input[name="background"]')
     static saveButton = () => cy.get('ion-button[name="save"]')
-    static deleteContactButton = () => cy.contains('ion-item', 'Justin Cas').find('ion-icon[name="trash"]')
+    static deleteContactButton = () => cy.contains('ion-item', 'Justin Case').find('ion-icon[name="trash"]')
     static login() {
       loginPage.visit('https://mycrmapp.azurewebsites.net/myCRMApp/')
       loginPage.loginUserNameInput().type('justin.cost@gmail.com')

@@ -21,6 +21,11 @@ async function setupNodeEvents(
 }
 
 export default defineConfig({
+  fixturesFolder: false,
+  // env: {
+  //   userName: 'justin.cost@gmail.com',
+  //   password: 'admin'
+  // },
   e2e: {
     setupNodeEvents,
     specPattern: ['**/*.feature', 'cypress/e2e/*.ts'],

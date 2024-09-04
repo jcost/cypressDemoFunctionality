@@ -3,9 +3,15 @@ import { loginPage } from "../fixtures/pageObjects/loginPage.pageObjects"
 
 describe('ContactListTests', () => {
     it('Login and verify url on default contact list page.', () => {
-      loginPage.login()
+      cy.login('admin')
+      loginPage.visit()
       cy.url().should('include', '/myCRMApp/tabs/Contacts')
-      loginPage.logoutButton().click()
+    })
+    it.only('Login via API and hit the getAllContacts API endpoint', () =>{
+      cy.login('admin')
+      cy.requestWithToken({url: 'https://crmservices.azurewebsites.net/api/Contacts/getAllContacts?status=Contacts&sortBy=fullName&order=ASC'}).then((response) => {
+        cy.log(JSON.stringify(response.body))
+      })
     })
     it('Mock 30 entries in getAllContacts api endpoint', () => {
       loginPage.visit()
@@ -16,7 +22,7 @@ describe('ContactListTests', () => {
       cy.wait('@getAllContacts')
       loginPage.contactListItem().should('have.length', 30)
     })
-    it.only('Add Contact', () => {
+    it('Add Contact', () => {
       cy.intercept('GET', '/api/Contacts/getAllContacts**').as('getAllContacts')
       loginPage.login()
       cy.wait('@getAllContacts')

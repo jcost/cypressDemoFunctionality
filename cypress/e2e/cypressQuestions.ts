@@ -1,4 +1,5 @@
 import { map } from "cypress/types/bluebird"
+import { round } from "cypress/types/lodash"
 
 //Making an arrauy.
 let stringsToReverse: string[]  = [
@@ -22,6 +23,10 @@ interface MyStringObject {
 
 //This is a map of strings.
 let mapStringsToReverse = new Map<string, boolean>()
+
+let arrayOfNumbersToRoundUpToNextMultiple: number[] = [
+    1,2,3,4,5,6,7,10,19,21
+]
 
 describe('Cypress question', () => {
     //This reverses the strings the simplest way and makes them both lowercase.
@@ -61,13 +66,22 @@ describe('Cypress question', () => {
             expect(reverseString(key).toLowerCase()).to.not.equal(key.toLowerCase())
         })
     })
+    arrayOfNumbersToRoundUpToNextMultiple.forEach((numberToRoundUpTo) => {
+    it(`Round ${numberToRoundUpTo} to next multiple`, () => {
+        cy.log('number: ' + numberToRoundUpTo + ' roundedUptoNumber: ' + roundNumberToNextMultiple(numberToRoundUpTo, 5))
+        cy.log('number: ' + numberToRoundUpTo + ' roundedUptoNumber: ' + roundNumberToNextMultipleOldFormat(numberToRoundUpTo, 10))
+    })
+    })
 })
 
 //This is to reverse the string by splitting, reversing, then rejoining.
 function reverseString(str: string): string {
     return str.split('').reverse().join('')
 }
+function roundNumberToNextMultipleOldFormat(numberToRound: number, multipleToRoundUpTo: number): number {
+    return Math.ceil(numberToRound / multipleToRoundUpTo) * multipleToRoundUpTo;
+}
 
-function roundNumberToNextMultiple(numberToRound: number, multipleToRoundUpTo: number): number {
+const roundNumberToNextMultiple = (numberToRound: number, multipleToRoundUpTo: number): number => {
     return Math.ceil(numberToRound / multipleToRoundUpTo) * multipleToRoundUpTo;
 }
