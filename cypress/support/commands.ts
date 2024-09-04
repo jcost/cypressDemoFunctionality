@@ -48,12 +48,9 @@ Cypress.Commands.add('login', (admin: string) => {
 Cypress.Commands.add('requestWithToken', (options: Partial<Cypress.RequestOptions>) => {
     // First, retrieve the token from localStorage (or any other storage mechanism)
     cy.window().then((win) => {
-    //   const currentUser = JSON.parse(win.localStorage.getItem('currentUser') || '{}');
-    //   const token = currentUser.token;
-  
-    //   if (!token) {
-    //     throw new Error('No token found. Please ensure you have logged in first.');
-    //   }
+      if (!token) {
+        throw new Error('No token found. Please ensure you have logged in first.');
+      }
   
       // Merge the Authorization header into the provided options
       const authOptions = {
