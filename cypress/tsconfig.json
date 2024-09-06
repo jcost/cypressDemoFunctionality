@@ -5,5 +5,5 @@
     "types": ["cypress", "node"],
     "esModuleInterop": true
   },
-  "include": ["**/*.ts", "e2e/step_definitions"]
+  "include": ["**/*.ts", "specs/e2e/step_definitions", "specs/*/*.ts"]
 }

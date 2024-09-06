@@ -1,5 +1,5 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
-import { loginPage } from "../../fixtures/pageObjects/loginPage.pageObjects";
+import { loginPage } from "../../../fixtures/pageObjects/loginPage.pageObjects";
 
 Given("the user visits the login page", () => {
   loginPage.visit()

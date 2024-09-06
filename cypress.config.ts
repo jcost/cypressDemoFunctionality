@@ -28,6 +28,6 @@ export default defineConfig({
   // },
   e2e: {
     setupNodeEvents,
-    specPattern: ['**/*.feature', 'cypress/e2e/*.ts'],
+    specPattern: ['**/*.feature', 'cypress/specs/bei/*.ts', 'cypress/specs/fei/*.ts', 'cypress/specs/e2e/*.ts', 'cypress/specs/utilities/*.ts'],
   },
 });
