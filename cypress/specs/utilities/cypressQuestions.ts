@@ -35,14 +35,68 @@ describe('Cypress question', () => {
         expect(reverseString(arrayValue).toLowerCase()).to.equal(arrayValue.toLowerCase())
       })
     })
-    //This reverses the strings by using an object of strings.
-    it('Reverse String Using Object of Strings', () => {
+    let arrayOfStringsToCheckPalindrome: string[] = ['anna', 'troy', 'Troy', 'Anna']
+
+    arrayOfStringsToCheckPalindrome.forEach((str) => {
+    it.only(`Find out if String ${str} is Palindrome without using .reverse`, () => {
+
+        let stringSplitArray = str.toLowerCase().split('')
+        let newWord = ''
+        for(let i = stringSplitArray.length - 1; i >= 0; i--) {
+            newWord += stringSplitArray[i]
+        }
+
+        if(newWord === str.toLowerCase()) {
+            cy.log('Word is a palindrome')
+        }
+        else {
+            cy.log('Word is NOT a palindrome')
+        }
+    })
+    })
+    //This reverses the strings by using an object of strings and then checks if it's a palindrome.
+    it('Is String a Palindrome', () => {
         stringsToReverseObject.forEach((stringElement) => {
             stringElement.shouldMatch ?
             expect(reverseString(stringElement.stringToReverse).toLowerCase()).to.equal(stringElement.stringToReverse.toLowerCase()) :
             expect(reverseString(stringElement.stringToReverse).toLowerCase()).to.not.equal(stringElement.stringToReverse.toLowerCase())
           })
     })
+    it('How do you calculate the number of numerical digits in a string?', () => {
+        let stringOfNumbersAndLetters: string = 't0e.sting123'
+        let count = 0
+
+        //This is a way to count the digits.
+        stringOfNumbersAndLetters.split('').forEach((c) => {
+            if(+c >= 0) {
+                count += 1
+            }
+        })
+
+        expect(count).to.equal(4)
+
+        //This is a way to count the digits using regex.
+        expect(countDigits(stringOfNumbersAndLetters)).to.equal(4)
+    })
+    it('How do you find the count for the occurrence of a particular character in a string?', () => {
+        let stringOfSpecificCharacters = 'testingt'
+        let count = 0
+        let characterToCheckFor = 't'
+        let char: string
+
+        //This is a way to count a specific character using split.
+        stringOfSpecificCharacters.split('').forEach((c) => {
+            if(c === characterToCheckFor) {
+                count += 1
+            }
+        })
+        expect(count).to.equal(3)
+    })
+
+    const countDigits = ((stringToCount): number => {
+        return (stringToCount.match(/\d/g) || []).length
+    })
+
     //This is to use a map to compare string values.
     it('Using Map to compare string values after reversing', () => {
 
@@ -72,6 +126,10 @@ describe('Cypress question', () => {
         cy.log('number: ' + numberToRoundUpTo + ' roundedUptoNumber: ' + roundNumberToNextMultipleOldFormat(numberToRoundUpTo, 10))
     })
     })
+    it('Resursive function to sum an array of 10 numbers', () => {
+        let sumOfNumbers = recursivelySumNumbers(arrayOfNumbers)
+        cy.log('sum: ' + sumOfNumbers)
+    })
 })
 
 //This is to reverse the string by splitting, reversing, then rejoining.
@@ -84,4 +142,14 @@ function roundNumberToNextMultipleOldFormat(numberToRound: number, multipleToRou
 
 const roundNumberToNextMultiple = (numberToRound: number, multipleToRoundUpTo: number): number => {
     return Math.ceil(numberToRound / multipleToRoundUpTo) * multipleToRoundUpTo;
+}
+
+const arrayOfNumbers: number[] = [ 10,0,0,0,0,10,10,10,10,10 ]
+let sum = 0
+const recursivelySumNumbers = (numberArrayToSum: number[], index: number = 0): number => {
+    if(index < numberArrayToSum.length) {
+        sum += numberArrayToSum[index]
+        recursivelySumNumbers(numberArrayToSum, index + 1)
+    }
+    return sum
 }
