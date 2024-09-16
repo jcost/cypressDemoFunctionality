@@ -8,6 +8,9 @@ declare namespace Cypress {
       getSessionStorage(key)
       setSessionStorage(key, value)
       requestWithToken(options: Partial<Cypress.RequestOptions>)
+      createJiraTicketOnFailure()
+      createJiraTicket(summary: string, description: string): Chainable<void>
     }
   }
+  
   

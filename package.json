@@ -24,6 +24,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@cypress/browserify-preprocessor": "^3.0.2"
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "axios": "^1.7.7"
   }
 }

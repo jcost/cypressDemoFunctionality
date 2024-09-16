@@ -1,7 +1,9 @@
 /// <reference types="cypress" />
 // ***********************************************
 
-import 'cypress-localstorage-commands';
+import 'cypress-localstorage-commands'
+
+const jiraBaseUrl = 'https://justincost.atlassian.net'
 
 Cypress.Commands.add('getSessionStorage', (key) => {
     cy.window().then((window) => window.sessionStorage.getItem(key))
@@ -65,4 +67,45 @@ Cypress.Commands.add('requestWithToken', (options: Partial<Cypress.RequestOption
       return cy.request(authOptions);
     });
   });
+
+Cypress.Commands.add('createJiraTicket', (summary: string, description: string): Cypress.Chainable => {
+    const jiraEnvVariables = Cypress.env("jira")
+    const jiraApiUrl = jiraEnvVariables["apiUrl"]
+    const jiraEmail = jiraEnvVariables["email"]
+    const jiraApiToken = jiraEnvVariables["apiToken"]
+    const jiraProjectKey = jiraEnvVariables["projectKey"]
+  
+    //The params inside the object you are passing into this task call have to match what is defined in the actual task function in cypress.config.ts, otherwise it will be undefined.
+    return cy.task('createJiraTicket', {
+        jiraApiUrl,
+        summary,
+        description,
+        jiraEmail,
+        jiraApiToken,
+        jiraProjectKey,
+    }).then((response: { status: number; data: any }) => {
+      cy.log('Response Status:', response.status);
+      cy.log('Response Body:', JSON.stringify(response.data));
+  
+      if (response.status === 201) {
+        cy.log('JIRA ticket created successfully:', response.data.key);
+      } else {
+        cy.log('Failed to create JIRA ticket:', response.data);
+        throw new Error(`Failed to create JIRA ticket: ${JSON.stringify(response.data)}`);
+      }
+    })
+  })
+  
+export function registerJiraTicketHook() {
+    afterEach(function () {
+        if (this.currentTest?.state === 'failed') {
+            const { title, err } = this.currentTest
+
+            cy.createJiraTicket(
+                `Test failed: ${title}`,
+                err?.message || 'No error message'
+            )
+        }
+    })
+}
   
