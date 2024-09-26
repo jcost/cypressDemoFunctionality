@@ -1,0 +1,29 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.15.0'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npx cypress install
+    npm install axios
+  displayName: 'npm install, cypress, axios library'
+  
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'cypress.env.json'
+- script: |
+    mv $(Agent.TempDirectory)/cypress.env.json ./cypress.env.json
+  displayName: 'Move cypress.env.json to project root'
