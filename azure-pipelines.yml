@@ -27,3 +27,7 @@ steps:
 - script: |
     mv $(Agent.TempDirectory)/cypress.env.json ./cypress.env.json
   displayName: 'Move cypress.env.json to project root'
+
+- script: |
+    npx cypress run --reporter spec
+  displayName: 'Run Cypress tests'
