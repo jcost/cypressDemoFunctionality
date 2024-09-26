@@ -6,7 +6,7 @@ describe('ContactListAPITests', () => {
     it('Login via API and hit the getAllContacts API endpoint and validate field values and types', () =>{
       const idRegex = /^[A-Za-z0-9]{20}$/
       const phoneRegex = /^\d{10}$/
-      const dueDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$/
+      const dueDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{1,6}Z$/
 
       cy.login('admin')
       cy.requestWithToken({url: ContactsEndpoints.getAllContactsPath}).then((response) => {

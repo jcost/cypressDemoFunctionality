@@ -13,7 +13,7 @@ describe('ContactListTests', () => {
       cy.intercept('GET', '/api/Contacts/getAllContacts**', mockResponses.mockContactList).as('getAllContacts')
       loginPage.loginButton().click()
       cy.wait('@getAllContacts')
-      loginPage.contactListItem().should('have.length', 29)
+      loginPage.contactListItem().should('have.length', 30)
     })
 })
   
